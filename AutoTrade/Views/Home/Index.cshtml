@@ -1,0 +1,136 @@
+﻿@using AutoTrade.ViewModel
+@model CoinTotalDataViewModel
+
+@*Auto refresh*@
+@*<meta http-equiv="refresh" content="40">*@
+
+<table id="dataTable" class="sortable rwd-table" style="margin: 70px auto">
+    <thead>
+        <tr>
+            <td style="max-width: 110px">No.</td>
+            <td style="min-width: 110px">Name</td>
+            <td>LatestBid</td>
+            @*<td>5MBid</td>
+            <td>10MBid</td>
+            <td>30MBid</td>
+            <td>1HBid</td>
+            <td>2HBid</td>
+            <td>3HBid</td>
+            <td>6HBid</td>
+            <td>24HBid</td>
+            <td>Buy/Sell</td>*@
+            <td>High/Low</td>
+            <td>Latest/Highest</td>
+            <td>Latest/Lowest</td>
+            <td>VolumeChange</td>
+            <td>Volume</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 1;
+            foreach (var item in Model.TrendingCoin)
+            {
+                <tr>
+                    <td>@(i++)</td>
+                    <td><a href="https://bittrex.com/Market/Index?MarketName=@item.CoinId" target="_blank">@item.CoinId</a></td>
+                    <td>@item.LatestBid</td>
+                    @*<td class="percent-sign" data-sign="@DiffSign(item.Prev5MBidPercent.ToString())">@item.Prev5MBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev10MBidPercent.ToString())">@item.Prev10MBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev30MBidPercent.ToString())">@item.Prev30MBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev1HBidPercent.ToString())">@item.Prev1HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev2HBidPercent.ToString())">@item.Prev2HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev3HBidPercent.ToString())">@item.Prev3HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev6HBidPercent.ToString())">@item.Prev6HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev24HBidPercent.ToString())">@item.Prev24HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.SellBuyRatio.ToString())">@item.SellBuyRatio</td>*@
+                    <td class="percent-sign" data-sign="@DiffSign(item.HighLowRatio.ToString())">@item.HighLowRatio%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.LatestBidHighRatio.ToString())">@item.LatestBidHighRatio%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.LatestBidLowRatio.ToString())">@item.LatestBidLowRatio%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.VolumeChangePercent.ToString())">@item.VolumeChangePercent%</td>
+                    <td>@decimal.Round(item.Volume ?? 0, 2, MidpointRounding.AwayFromZero)</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<table id="dataTable" class="sortable rwd-table" style="margin: 70px auto">
+    <thead>
+        <tr>
+            <td style="max-width: 110px">No.</td>
+            <td style="min-width: 110px">Name</td>
+            <td>LatestBid</td>
+            @*<td>5MAsk</td>
+            <td>5MBid</td>
+            <td>10MAsk</td>
+            <td>10MBid</td>
+            <td>30MAsk</td>
+            <td>30MBid</td>
+            <td>1HAsk</td>
+            <td>1HBid</td>
+            <td>2HAsk</td>
+            <td>2HBid</td>
+            <td>3HAsk</td>
+            <td>3HBid</td>
+            <td>6HAsk</td>
+            <td>6HBid</td>
+            <td>24HAsk</td>
+            <td>24HBid</td>
+            <td>Buy/Sell</td>*@
+            <td>High/Low</td>
+            <td>Latest/Highest</td>
+            <td>Latest/Lowest</td>
+            <td>VolumeChange</td>
+            <td>Volume</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int j = 1;
+            foreach (var item in Model.CoinInfo)
+            {
+                <tr>
+                    <td>@(j++)</td>
+                    <td><a href="https://bittrex.com/Market/Index?MarketName=@item.CoinId" target="_blank">@item.CoinId</a></td>
+                    <td>@item.LatestBid</td>
+                    @*<td class="percent-sign" data-sign="@DiffSign(item.Prev5MAskPercent)">@item.Prev5MAskPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev5MBidPercent.ToString())">@item.Prev5MBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev10MAskPercent)">@item.Prev10MAskPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev10MBidPercent.ToString())">@item.Prev10MBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev30MAskPercent)">@item.Prev30MAskPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev30MBidPercent.ToString())">@item.Prev30MBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev1HAskPercent)">@item.Prev1HAskPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev1HBidPercent.ToString())">@item.Prev1HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev2HAskPercent)">@item.Prev2HAskPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev2HBidPercent.ToString())">@item.Prev2HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev3HAskPercent)">@item.Prev3HAskPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev3HBidPercent.ToString())">@item.Prev3HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev6HAskPercent)">@item.Prev6HAskPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev6HBidPercent.ToString())">@item.Prev6HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev24HAskPercent)">@item.Prev24HAskPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.Prev24HBidPercent.ToString())">@item.Prev24HBidPercent%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.SellBuyRatio.ToString())">@item.SellBuyRatio</td>*@
+                    <td class="percent-sign" data-sign="@DiffSign(item.HighLowRatio.ToString())">@item.HighLowRatio%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.LatestBidHighRatio.ToString())">@item.LatestBidHighRatio%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.LatestBidLowRatio.ToString())">@item.LatestBidLowRatio%</td>
+                    <td class="percent-sign" data-sign="@DiffSign(item.VolumeChangePercent.ToString())">@item.VolumeChangePercent%</td>
+                    <td>@decimal.Round(item.Volume ?? 0, 2, MidpointRounding.AwayFromZero)</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@functions
+{
+    public string DiffSign(string diff)
+    {
+        if (diff.Length == 0)
+        {
+            return "+";
+        }
+        return diff.Contains("-") ? "-" : "+";
+    }
+}
+
