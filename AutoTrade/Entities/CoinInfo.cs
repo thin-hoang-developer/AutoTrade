@@ -14,6 +14,55 @@ namespace AutoTrade.Entities
         [NotMapped]
         public decimal? LatestAsk { get; set; }
         public decimal? LatestBid { get; set; }
+        public decimal? Volume { get; set; }
+        public decimal? PrevBaseVolume { get; set; }
+        public decimal? High { get; set; }
+        public decimal? Low { get; set; }
+
+        [NotMapped]
+        public decimal VolumeChangePercent
+        {
+            get
+            {
+                return CalculatePercent(Volume, PrevBaseVolume);
+            }
+        }
+
+
+        [NotMapped]
+        public decimal HighLowRatio
+        {
+            get
+            {
+                return CalculatePercent(High, Low);
+            }
+        }
+
+        [NotMapped]
+        public decimal LatestBidHighRatio
+        {
+            get
+            {
+                return CalculatePercent(LatestBid, High);
+            }
+        }
+
+        [NotMapped]
+        public decimal LatestBidLowRatio
+        {
+            get
+            {
+                return CalculatePercent(LatestBid, Low);
+            }
+        }
+
+        [NotMapped]
+        public DateTime LatestTime { get; set; }
+        public decimal CalculatePercent(decimal? a, decimal? b)
+        {
+            return decimal.Round((a - b) / b * 100 ?? 0, 2, MidpointRounding.AwayFromZero);
+        }
+
         //[NotMapped]
         //public decimal? Prev5MAsk { get; set; }
         //public decimal? Prev5MBid { get; set; }
@@ -38,20 +87,6 @@ namespace AutoTrade.Entities
         //[NotMapped]
         //public decimal? Prev24HAsk { get; set; }
         //public decimal? Prev24HBid { get; set; }
-        public decimal? Volume { get; set; }
-        public decimal? PrevBaseVolume { get; set; }
-        public decimal? High { get; set; }
-        public decimal? Low { get; set; }
-
-        [NotMapped]
-        public decimal VolumeChangePercent
-        {
-            get
-            {
-                return CalculatePercent(Volume, PrevBaseVolume);
-            }
-        }
-
 
         //[NotMapped]
         //public decimal Prev5MAskPercent
@@ -182,8 +217,7 @@ namespace AutoTrade.Entities
         //    }
         //}
 
-        [NotMapped]
-        public DateTime LatestTime { get; set; }
+
 
         //public int OpenBuyOrders { get; set; }
         //public int OpenSellOrders { get; set; }
@@ -197,37 +231,5 @@ namespace AutoTrade.Entities
         //    }
         //}
 
-        [NotMapped]
-        public decimal HighLowRatio
-        {
-            get
-            {
-                return CalculatePercent(High, Low);
-            }
-        }
-
-        [NotMapped]
-        public decimal LatestBidHighRatio
-        {
-            get
-            {
-                return CalculatePercent(LatestBid, High);
-            }
-        }
-
-        [NotMapped]
-        public decimal LatestBidLowRatio
-        {
-            get
-            {
-                return CalculatePercent(LatestBid, Low);
-            }
-        }
-        
-
-        public decimal CalculatePercent(decimal? a, decimal? b)
-        {
-            return decimal.Round((a - b) / b * 100 ?? 0, 2, MidpointRounding.AwayFromZero);
-        }
     }
 }
