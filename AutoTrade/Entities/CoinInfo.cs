@@ -28,7 +28,6 @@ namespace AutoTrade.Entities
             }
         }
 
-
         [NotMapped]
         public decimal HighLowRatio
         {
